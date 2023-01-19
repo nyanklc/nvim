@@ -77,5 +77,8 @@ map("i", "<C-Space>", "")
 -- terminal
 map("t", "<Esc>", "<C-\\><C-n>")
 
+-- format file
+map("n", "<Leader>ff", ":LspZeroFormat<CR>")
+
 -- plugins and stuff
 require("init")
