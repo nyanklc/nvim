@@ -11,11 +11,6 @@ function map(mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
--- colorscheme
-vim.cmd("set background=dark")
-vim.cmd("colorscheme alduin")
-vim.g.background = "dark"
-
 -- options
 vim.g.mapleader = ","
 vim.cmd("set clipboard=unnamedplus")
@@ -23,7 +18,7 @@ vim.o.termguicolors = true
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.wrap = false
-vim.o.tabstop = 2
+vim.o.tabstop = 4
 vim.o.shiftwidth = 2
 vim.o.expandtab = true
 vim.o.incsearch = true
@@ -35,7 +30,7 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.scrolloff = 12
 vim.o.errorbells = false
-vim.o.showtabline = 2
+vim.o.showtabline = 4
 vim.o.guicursor = ""
 vim.o.smartindent = true
 
@@ -82,3 +77,8 @@ map("n", "<Leader>ff", ":LspZeroFormat<CR>")
 
 -- plugins and stuff
 require("init")
+
+-- colorscheme
+vim.cmd("set background=dark")
+vim.cmd("colorscheme melange")
+vim.g.background = "dark"

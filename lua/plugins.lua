@@ -60,6 +60,30 @@ return require('packer').startup(function(use)
 
   use "sainnhe/sonokai"
 
+  use "ayu-theme/ayu-vim"
+
+  use "folke/tokyonight.nvim"
+  
+  use "bluz71/vim-moonfly-colors"
+
+  use "itsjunetime/rose-pine-vim"
+
+  use "aditya-azad/candle-grey"
+
+  use "owickstrom/vim-colors-paramount"
+
+  use "vim-scripts/twilight256.vim"
+
+  use "axvr/photon.vim"
+
+  use "jpo/vim-railscasts-theme"
+
+  use "rstacruz/vim-closer"
+
+  use "joshdick/onedark.vim"
+
+  use "savq/melange-nvim"
+
   -- lsp
   use {
   'VonHeikemen/lsp-zero.nvim',
