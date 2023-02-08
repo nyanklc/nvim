@@ -28,7 +28,6 @@ vim.o.hlsearch = true
 vim.o.swapfile = false
 vim.o.splitbelow = true
 vim.o.splitright = true
-vim.o.scrolloff = 12
 vim.o.errorbells = false
 vim.o.showtabline = 4
 vim.o.guicursor = ""
@@ -80,5 +79,5 @@ require("init")
 
 -- colorscheme
 vim.cmd("set background=dark")
-vim.cmd("colorscheme melange")
+vim.cmd("colorscheme sonokai")
 vim.g.background = "dark"
