@@ -36,6 +36,11 @@ vim.o.smartindent = true
 -- clear mappings
 map("n", "<S-j>", "")
 
+-- do not overwrite clipboard with 'x' and stuff
+vim.cmd('noremap x "_x')
+vim.cmd('noremap X "_x')
+vim.cmd('noremap <Del> "_x')
+
 -- switch between tabs
 map("n", "<S-l>", "gt")
 map("n", "<S-h>", "gT")
