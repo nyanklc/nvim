@@ -84,6 +84,10 @@ return require('packer').startup(function(use)
 
   use "savq/melange-nvim"
 
+  use "phanviet/vim-monokai-pro"
+
+  use "Mofiqul/dracula.nvim"
+
   -- lsp
   use {
   'VonHeikemen/lsp-zero.nvim',

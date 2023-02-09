@@ -84,5 +84,5 @@ require("init")
 
 -- colorscheme
 vim.cmd("set background=dark")
-vim.cmd("colorscheme sonokai")
+vim.cmd("colorscheme dracula")
 vim.g.background = "dark"
