@@ -30,7 +30,6 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.errorbells = false
 vim.o.showtabline = 4
-vim.o.guicursor = ""
 vim.o.smartindent = true
 
 -- clear mappings
