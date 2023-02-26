@@ -34,19 +34,17 @@ return require('packer').startup(function(use)
   use 'sainnhe/gruvbox-material'
 
   use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate'
-  }
-
-  use {
   'lewis6991/gitsigns.nvim',
   -- tag = 'release' -- To use the latest release (do not use this if you run Neovim nightly or dev builds!)
   }
   require('gitsigns').setup()
 
-  use "lukas-reineke/indent-blankline.nvim"
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate'
+  }
 
-  use "ackyshake/Spacegray.vim"
+  use "lukas-reineke/indent-blankline.nvim"
 
   use "srcery-colors/srcery-vim"
 
@@ -87,6 +85,18 @@ return require('packer').startup(function(use)
   use "phanviet/vim-monokai-pro"
 
   use "Mofiqul/dracula.nvim"
+
+  use "tpope/vim-commentary"
+
+  use "gosukiwi/vim-atom-dark"
+
+  use "sainnhe/everforest"
+
+  use "rebelot/kanagawa.nvim"
+
+  use "ChristianChiarulli/nvcode-color-schemes.vim"
+
+  use "Everblush/everblush.vim"
 
   -- lsp
   use {
