@@ -56,6 +56,9 @@ require("lazy").setup({
   {'windwp/nvim-autopairs', event = "InsertEnter", opts = {}},
   {'numToStr/Comment.nvim', opts = {}, lazy = false},
   {'lewis6991/gitsigns.nvim'},
+  {'zefei/cake16'},
+  {'ajgrf/parchment'},
+  {'rebelot/kanagawa.nvim'},
 })
 
 require('lualine').setup({
@@ -71,4 +74,4 @@ require('gitsigns').setup()
 
 vim.opt.termguicolors = true
 vim.g.material_style = 'darker'
-vim.cmd.colorscheme('material')
+vim.cmd.colorscheme('kanagawa')
