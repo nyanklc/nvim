@@ -20,6 +20,7 @@ vim.api.nvim_set_keymap('v', 'y', '"+y', { noremap = true })
 vim.api.nvim_set_keymap('v', 'p', '"+p', { noremap = true })
 vim.api.nvim_set_keymap('v', 'P', '"+P', { noremap = true })
 vim.api.nvim_set_keymap('v', 'd', '"+d', { noremap = true })
+-- vim.g.clipboard = 'unnamedplus'
 
 
 -- misc
@@ -110,3 +111,25 @@ require('gitsigns').setup()
 vim.opt.termguicolors = true
 vim.g.material_style = 'darker'
 vim.cmd.colorscheme('material')
+
+-- neovide
+-- macos only
+--   -- Helper function for transparency formatting
+--   local alpha = function()
+--     return string.format("%x", math.floor(255 * vim.g.transparency or 0.8))
+--   end
+--   -- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
+--   vim.g.neovide_transparency = 0.0
+--   vim.g.transparency = 0.8
+--   vim.g.neovide_background_color = "#0f1117" .. alpha()
+-- neovide only
+if vim.g.neovide then
+    -- Put anything you want to happen only in Neovide here
+  -- vim.o.guifont = "Source Code Pro:h14"
+  vim.api.nvim_set_keymap("n", "<C-+>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>", { silent = true })
+  vim.api.nvim_set_keymap("n", "<C-->", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>", { silent = true })
+  vim.api.nvim_set_keymap("n", "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>", { silent = true })
+end
+-- generic
+-- vim.g.neovide_transparency = 0.5
+vim.g.neovide_hide_mouse_when_typing = true
