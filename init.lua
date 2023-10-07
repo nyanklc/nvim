@@ -74,6 +74,8 @@ require("lazy").setup({
   {'ajgrf/parchment'},
   {'rebelot/kanagawa.nvim'},
   {'wellle/context.vim'},
+  {'doki-theme/doki-theme-vim'},
+  {'danishprakash/vim-yami'},
 
 -- LSP
   {'williamboman/mason.nvim'},
@@ -112,7 +114,7 @@ require('gitsigns').setup()
 -- colorscheme
 vim.opt.termguicolors = true
 vim.g.material_style = 'darker'
-vim.cmd.colorscheme('quiet')
+vim.cmd.colorscheme('yami')
 
 -- neovide
 -- macos only
