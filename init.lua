@@ -86,6 +86,8 @@ require("lazy").setup({
 })
 
 -- plugin setup
+-- context override
+vim.keymap.set('n', '<S-h>', ':tabprevious<CR>')
 -- LSP
 local lsp_zero = require('lsp-zero')
 lsp_zero.on_attach(function(client, bufnr)
