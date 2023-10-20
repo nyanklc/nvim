@@ -1,3 +1,7 @@
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 vim.g.mapleader = ' '
 
 vim.opt.nu = true
@@ -76,6 +80,10 @@ require("lazy").setup({
   {'wellle/context.vim'},
   {'doki-theme/doki-theme-vim'},
   {'danishprakash/vim-yami'},
+  {'petertriho/nvim-scrollbar'},
+  {'nvim-tree/nvim-tree.lua'},
+  {'sharkdp/fd'},
+  {'nvim-treesitter/nvim-treesitter'},
 
 -- LSP
   {'williamboman/mason.nvim'},
@@ -90,6 +98,30 @@ require("lazy").setup({
 -- plugin setup
 -- context override
 vim.keymap.set('n', '<S-h>', ':tabprevious<CR>')
+require("scrollbar").setup()
+require("nvim-tree").setup()
+vim.keymap.set('n', '<leader>nn', ':NvimTreeToggle<CR>')
+-- treesitter
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all" (the five listed parsers should always be installed)
+  ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "cpp" },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+  auto_install = true,
+
+
+  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
+  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+
+  highlight = {
+    enable = true,
+
+  },
+}
 -- LSP
 local lsp_zero = require('lsp-zero')
 lsp_zero.on_attach(function(client, bufnr)
