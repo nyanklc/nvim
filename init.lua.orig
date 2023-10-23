@@ -15,6 +15,8 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
+vim.o.guicursor = 'n-v-c-sm-i-ci-ve:block,r-cr-o:hor20,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor'
+
 -- clipboard
 vim.api.nvim_set_keymap('n', 'y', '"+y', { noremap = true })
 vim.api.nvim_set_keymap('n', 'p', '"+p', { noremap = true })
@@ -143,9 +145,14 @@ require('gitsigns').setup()
 
 -- colorscheme
 vim.opt.termguicolors = true
+<<<<<<< HEAD
 vim.g.material_style = 'lighter'
 vim.g.background = 'light'
 vim.cmd.colorscheme('material-lighter')
+=======
+vim.g.material_style = 'darker'
+vim.cmd.colorscheme('kanagawa-dragon')
+>>>>>>> efa0b7a78083bb823b70681fec4c365a514c80fc
 
 -- neovide
 -- macos only
