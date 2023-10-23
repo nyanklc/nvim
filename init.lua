@@ -15,6 +15,8 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
+vim.o.guicursor = 'n-v-c-sm-i-ci-ve:block,r-cr-o:hor20,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor'
+
 -- clipboard
 vim.api.nvim_set_keymap('n', 'y', '"+y', { noremap = true })
 vim.api.nvim_set_keymap('n', 'p', '"+p', { noremap = true })
@@ -78,8 +80,6 @@ require("lazy").setup({
   {'ajgrf/parchment'},
   {'rebelot/kanagawa.nvim'},
   {'wellle/context.vim'},
-  {'doki-theme/doki-theme-vim'},
-  {'danishprakash/vim-yami'},
   {'petertriho/nvim-scrollbar'},
   {'nvim-tree/nvim-tree.lua'},
   {'sharkdp/fd'},
@@ -145,8 +145,9 @@ require('gitsigns').setup()
 
 -- colorscheme
 vim.opt.termguicolors = true
-vim.g.material_style = 'darker'
-vim.cmd.colorscheme('kanagawa')
+vim.g.material_style = 'lighter'
+vim.g.background = 'light'
+vim.cmd.colorscheme('material-lighter')
 
 -- neovide
 -- macos only
