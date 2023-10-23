@@ -146,7 +146,7 @@ require('gitsigns').setup()
 -- colorscheme
 vim.opt.termguicolors = true
 vim.g.material_style = 'darker'
-vim.cmd.colorscheme('kanagawa')
+vim.cmd.colorscheme('kanagawa-dragon')
 
 -- neovide
 -- macos only
