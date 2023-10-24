@@ -146,8 +146,8 @@ require('gitsigns').setup()
 
 -- colorscheme
 vim.opt.termguicolors = true
-vim.g['background'] = 'light'
-vim.cmd.colorscheme('github_light')
+vim.g['background'] = 'dark'
+vim.cmd.colorscheme('github_dark_dimmed')
 
 -- neovide
 -- macos only
