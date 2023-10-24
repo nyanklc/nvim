@@ -84,6 +84,7 @@ require("lazy").setup({
   {'nvim-treesitter/nvim-treesitter'},
   {'NLKNguyen/papercolor-theme'},
   {'catppuccin/nvim'},
+  {'projekt0n/github-nvim-theme'},
 
 -- LSP
   {'williamboman/mason.nvim'},
@@ -146,7 +147,7 @@ require('gitsigns').setup()
 -- colorscheme
 vim.opt.termguicolors = true
 vim.g['background'] = 'light'
-vim.cmd.colorscheme('catppuccin-latte')
+vim.cmd.colorscheme('github_light')
 
 -- neovide
 -- macos only
