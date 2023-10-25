@@ -106,21 +106,15 @@ vim.keymap.set('n', '<leader>nn', ':NvimTreeToggle<CR>')
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
   ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "cpp" },
-
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
-
   -- Automatically install missing parsers when entering buffer
   -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
   auto_install = true,
-
-
   ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
   -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-
   highlight = {
     enable = true,
-
   },
 }
 -- LSP
@@ -132,11 +126,33 @@ lsp_zero.on_attach(function(client, bufnr)
 end)
 require('lspconfig').lua_ls.setup({})
 require('lspconfig').clangd.setup{}
+-- remove annoying semantics
+lsp_zero.set_server_config({
+  on_init = function(client)
+    client.server_capabilities.semanticTokensProvider = nil
+  end,
+})
+local cmp = require('cmp')
+local cmp_select = {behavior = cmp.SelectBehavior.Select}
+cmp.setup({
+  sources = {
+    {name = 'path'},
+    {name = 'nvim_lsp'},
+    {name = 'nvim_lua'},
+  },
+  formatting = lsp_zero.cmp_format(),
+  mapping = cmp.mapping.preset.insert({
+    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-Space>'] = cmp.mapping.complete(),
+  }),
+})
 -- others
 require('lualine').setup({
 })
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+-- vim.keymap.set('n', '<leader>ff', builtin.find_files, {}) -- we'll use <leader>ff for formatting
 vim.keymap.set('n', '<C-p>', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
@@ -149,24 +165,3 @@ vim.opt.termguicolors = true
 vim.g['background'] = 'dark'
 vim.cmd.colorscheme('github_dark_dimmed')
 
--- neovide
--- macos only
---   -- Helper function for transparency formatting
---   local alpha = function()
---     return string.format("%x", math.floor(255 * vim.g.transparency or 0.8))
---   end
---   -- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
---   vim.g.neovide_transparency = 0.0
---   vim.g.transparency = 0.8
---   vim.g.neovide_background_color = "#0f1117" .. alpha()
--- neovide only
-if vim.g.neovide then
-    -- Put anything you want to happen only in Neovide here
-  -- vim.o.guifont = "Source Code Pro:h14"
-  vim.api.nvim_set_keymap("n", "<C-+>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>", { silent = true })
-  vim.api.nvim_set_keymap("n", "<C-->", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>", { silent = true })
-  vim.api.nvim_set_keymap("n", "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>", { silent = true })
-end
--- generic
--- vim.g.neovide_transparency = 0.5
-vim.g.neovide_hide_mouse_when_typing = true
