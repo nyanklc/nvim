@@ -69,6 +69,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   {'marko-cerovac/material.nvim'},
   {'nvim-lualine/lualine.nvim'},
+  {'nvim-tree/nvim-web-devicons'},
   {'nvim-lua/plenary.nvim'},
   {'nvim-telescope/telescope.nvim', tag = '0.1.2', dependencies = { 'nvim-lua/plenary.nvim' }},
   {'windwp/nvim-autopairs', event = "InsertEnter", opts = {}},
@@ -132,6 +133,7 @@ lsp_zero.set_server_config({
     client.server_capabilities.semanticTokensProvider = nil
   end,
 })
+-- completion
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 cmp.setup({
@@ -144,10 +146,18 @@ cmp.setup({
   mapping = cmp.mapping.preset.insert({
     ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
     ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
     ['<C-Space>'] = cmp.mapping.complete(),
   }),
 })
+-- turn off inline diagnostics
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = false
+    }
+)
+
 -- others
 require('lualine').setup({
 })
@@ -163,5 +173,5 @@ require('gitsigns').setup()
 -- colorscheme
 vim.opt.termguicolors = true
 vim.g['background'] = 'dark'
-vim.cmd.colorscheme('github_dark_dimmed')
+vim.cmd.colorscheme('material-darker')
 
