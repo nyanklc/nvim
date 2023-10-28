@@ -86,6 +86,15 @@ require("lazy").setup({
   {'NLKNguyen/papercolor-theme'},
   {'catppuccin/nvim'},
   {'projekt0n/github-nvim-theme'},
+  {'morhetz/gruvbox'},
+  {'awesome-vim-colorschemes'},
+  {'tomasr/molokai'},
+  {'nanotech/jellybeans.vim'},
+  {'bluz71/vim-moonfly-colors'},
+  {'savq/melange-nvim'},
+  {'jaredgorski/spacecamp'},
+  {'kyoz/purify'},
+  {'fxn/vim-monochrome'},
 
 -- LSP
   {'williamboman/mason.nvim'},
@@ -173,5 +182,5 @@ require('gitsigns').setup()
 -- colorscheme
 vim.opt.termguicolors = true
 vim.g['background'] = 'dark'
-vim.cmd.colorscheme('material-darker')
+vim.cmd.colorscheme('gruvbox')
 
