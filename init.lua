@@ -79,7 +79,7 @@ require("lazy").setup({
   {'ajgrf/parchment'},
   {'rebelot/kanagawa.nvim'},
   {'wellle/context.vim'},
-  {'petertriho/nvim-scrollbar'},
+  -- {'petertriho/nvim-scrollbar'},
   {'nvim-tree/nvim-tree.lua'},
   {'sharkdp/fd'},
   {'nvim-treesitter/nvim-treesitter'},
@@ -95,6 +95,7 @@ require("lazy").setup({
   {'jaredgorski/spacecamp'},
   {'kyoz/purify'},
   {'fxn/vim-monochrome'},
+  {'wfxr/minimap.vim'}, -- should install https://github.com/wfxr/code-minimap first
 
 -- LSP
   {'williamboman/mason.nvim'},
@@ -107,9 +108,13 @@ require("lazy").setup({
 })
 
 -- plugin setup
+-- minimap -- should install https://github.com/wfxr/code-minimap first
+vim.g.minimap_width = 10
+vim.g.minimap_auto_start = 1
+vim.g.minimap_auto_start_win_enter = 1
 -- context override
 vim.keymap.set('n', '<S-h>', ':tabprevious<CR>')
-require("scrollbar").setup()
+-- require("scrollbar").setup()
 require("nvim-tree").setup()
 vim.keymap.set('n', '<leader>nn', ':NvimTreeToggle<CR>')
 -- treesitter
