@@ -95,7 +95,6 @@ require("lazy").setup({
   {'jaredgorski/spacecamp'},
   {'kyoz/purify'},
   {'fxn/vim-monochrome'},
-  {'wfxr/minimap.vim'}, -- should install https://github.com/wfxr/code-minimap first
 
 -- LSP
   {'williamboman/mason.nvim'},
@@ -187,5 +186,5 @@ require('gitsigns').setup()
 -- colorscheme
 vim.opt.termguicolors = true
 vim.g['background'] = 'dark'
-vim.cmd.colorscheme('gruvbox')
+vim.cmd.colorscheme('catpuccin-mocha')
 
