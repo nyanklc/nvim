@@ -186,5 +186,5 @@ require('gitsigns').setup()
 -- colorscheme
 vim.opt.termguicolors = true
 vim.g['background'] = 'dark'
-vim.cmd.colorscheme('material-darker')
+vim.cmd.colorscheme('gruvbox')
 
