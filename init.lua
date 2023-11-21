@@ -9,10 +9,10 @@ vim.opt.mouse = 'a'
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.hlsearch = true
-vim.opt.wrap = true
+vim.opt.wrap = false
 vim.opt.breakindent = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
 -- clipboard
@@ -95,6 +95,9 @@ require("lazy").setup({
   {'jaredgorski/spacecamp'},
   {'kyoz/purify'},
   {'fxn/vim-monochrome'},
+  {'altercation/vim-colors-solarized'},
+  {'dikiaap/minimalist'},
+  {'yorickpeterse/vim-paper'},
 
 -- LSP
   {'williamboman/mason.nvim'},
@@ -138,8 +141,16 @@ lsp_zero.on_attach(function(client, bufnr)
   -- to learn the available actions
   lsp_zero.default_keymaps({buffer = bufnr})
 end)
-require('lspconfig').lua_ls.setup({})
-require('lspconfig').clangd.setup{}
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  -- Replace the language servers listed here
+  -- with the ones you want to install
+  ensure_installed = {'clangd', 'lua_ls'},
+  handlers = {
+    lsp_zero.default_setup,
+  }
+})
+require'lspconfig'.jedi_language_server.setup{}
 -- remove annoying semantics
 lsp_zero.set_server_config({
   on_init = function(client)
@@ -185,6 +196,7 @@ require('gitsigns').setup()
 
 -- colorscheme
 vim.opt.termguicolors = true
+vim.cmd('syntax on')
 vim.g['background'] = 'dark'
-vim.cmd.colorscheme('gruvbox')
+vim.cmd.colorscheme('solarized')
 
