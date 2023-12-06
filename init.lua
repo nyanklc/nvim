@@ -98,6 +98,7 @@ require("lazy").setup({
   {'altercation/vim-colors-solarized'},
   {'dikiaap/minimalist'},
   {'yorickpeterse/vim-paper'},
+  {'lifepillar/vim-solarized8'},
 
 -- LSP
   {'williamboman/mason.nvim'},
@@ -198,5 +199,5 @@ require('gitsigns').setup()
 vim.opt.termguicolors = true
 vim.cmd('syntax on')
 vim.g['background'] = 'dark'
-vim.cmd.colorscheme('minimalist')
+vim.cmd.colorscheme('solarized8')
 
