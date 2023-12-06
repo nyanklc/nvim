@@ -199,5 +199,5 @@ require('gitsigns').setup()
 vim.opt.termguicolors = true
 vim.cmd('syntax on')
 vim.g['background'] = 'dark'
-vim.cmd.colorscheme('solarized8')
+vim.cmd.colorscheme('catppuccin')
 
