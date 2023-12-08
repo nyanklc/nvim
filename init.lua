@@ -108,13 +108,17 @@ require("lazy").setup({
   {'hrsh7th/cmp-nvim-lsp'},
   {'hrsh7th/nvim-cmp'},
   {'L3MON4D3/LuaSnip'},
+  {'folke/trouble.nvim', dependencies = {"nvim-tree/nvim-web-devicons"}},
 })
 
 -- plugin setup
--- minimap -- should install https://github.com/wfxr/code-minimap first
-vim.g.minimap_width = 10
-vim.g.minimap_auto_start = 1
-vim.g.minimap_auto_start_win_enter = 1
+-- trouble
+vim.keymap.set("n", "<leader>xx", function() require("trouble").toggle() end)
+vim.keymap.set("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
+vim.keymap.set("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
+vim.keymap.set("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
+vim.keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
+vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end)
 -- context override
 vim.keymap.set('n', '<S-h>', ':tabprevious<CR>')
 -- require("scrollbar").setup()
