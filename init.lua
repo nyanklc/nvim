@@ -11,8 +11,8 @@ vim.opt.smartcase = true
 vim.opt.hlsearch = true
 vim.opt.wrap = false
 vim.opt.breakindent = true
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
 -- clipboard
@@ -24,7 +24,7 @@ vim.api.nvim_set_keymap('v', 'y', '"+y', { noremap = true })
 vim.api.nvim_set_keymap('v', 'p', '"+p', { noremap = true })
 vim.api.nvim_set_keymap('v', 'P', '"+P', { noremap = true })
 vim.api.nvim_set_keymap('v', 'd', '"+d', { noremap = true })
--- vim.g.clipboard = 'unnamedplus'
+vim.g.clipboard = 'unnamedplus'
 
 
 -- misc
@@ -82,12 +82,10 @@ require("lazy").setup({
   -- {'petertriho/nvim-scrollbar'},
   {'nvim-tree/nvim-tree.lua'},
   {'sharkdp/fd'},
-  {'nvim-treesitter/nvim-treesitter'},
   {'NLKNguyen/papercolor-theme'},
   {'catppuccin/nvim'},
   {'projekt0n/github-nvim-theme'},
   {'morhetz/gruvbox'},
-  {'awesome-vim-colorschemes'},
   {'tomasr/molokai'},
   {'nanotech/jellybeans.vim'},
   {'bluz71/vim-moonfly-colors'},
@@ -124,21 +122,6 @@ vim.keymap.set('n', '<S-h>', ':tabprevious<CR>')
 -- require("scrollbar").setup()
 require("nvim-tree").setup()
 vim.keymap.set('n', '<leader>nn', ':NvimTreeToggle<CR>')
--- treesitter
-require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all" (the five listed parsers should always be installed)
-  ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "cpp" },
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
-  -- Automatically install missing parsers when entering buffer
-  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
-  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-  highlight = {
-    enable = true,
-  },
-}
 -- LSP
 local lsp_zero = require('lsp-zero')
 lsp_zero.on_attach(function(client, bufnr)
