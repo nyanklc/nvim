@@ -24,8 +24,7 @@ vim.api.nvim_set_keymap('v', 'y', '"+y', { noremap = true })
 vim.api.nvim_set_keymap('v', 'p', '"+p', { noremap = true })
 vim.api.nvim_set_keymap('v', 'P', '"+P', { noremap = true })
 vim.api.nvim_set_keymap('v', 'd', '"+d', { noremap = true })
-vim.g.clipboard = 'unnamedplus'
-
+vim.api.nvim_set_option("clipboard", "unnamedplus")
 
 -- misc
 vim.keymap.set('n', '<leader>w', '<cmd>write<cr>')
@@ -106,6 +105,7 @@ require("lazy").setup({
   {'hrsh7th/cmp-nvim-lsp'},
   {'hrsh7th/nvim-cmp'},
   {'L3MON4D3/LuaSnip'},
+  {'kemiller/vim-ir_black'},
   {'folke/trouble.nvim', dependencies = {"nvim-tree/nvim-web-devicons"}},
 })
 
@@ -185,6 +185,9 @@ require('gitsigns').setup()
 -- colorscheme
 vim.opt.termguicolors = true
 vim.cmd('syntax on')
+vim.api.nvim_cmd({
+  cmd = 'colorscheme',
+  args = {'ir_black'}
+}, {})
 vim.g['background'] = 'dark'
-vim.cmd.colorscheme('gruvbox')
 
