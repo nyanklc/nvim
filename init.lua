@@ -138,7 +138,6 @@ require('mason-lspconfig').setup({
     lsp_zero.default_setup,
   }
 })
-require'lspconfig'.jedi_language_server.setup{}
 -- remove annoying semantics
 lsp_zero.set_server_config({
   on_init = function(client)
@@ -187,7 +186,7 @@ vim.opt.termguicolors = true
 vim.cmd('syntax on')
 vim.api.nvim_cmd({
   cmd = 'colorscheme',
-  args = {'ir_black'}
+  args = {'gruvbox'}
 }, {})
 vim.g['background'] = 'dark'
 
