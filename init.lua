@@ -9,7 +9,6 @@ vim.opt.mouse = 'a'
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.hlsearch = true
-vim.opt.wrap = false
 vim.opt.breakindent = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -17,19 +16,30 @@ vim.opt.expandtab = true
 vim.opt.wrap = true
 
 -- clipboard
-vim.api.nvim_set_keymap('n', 'y', '"+y', { noremap = true })
-vim.api.nvim_set_keymap('n', 'p', '"+p', { noremap = true })
-vim.api.nvim_set_keymap('n', 'P', '"+P', { noremap = true })
-vim.api.nvim_set_keymap('n', 'd', '"+d', { noremap = true })
-vim.api.nvim_set_keymap('v', 'y', '"+y', { noremap = true })
-vim.api.nvim_set_keymap('v', 'p', '"+p', { noremap = true })
-vim.api.nvim_set_keymap('v', 'P', '"+P', { noremap = true })
-vim.api.nvim_set_keymap('v', 'd', '"+d', { noremap = true })
-vim.api.nvim_set_option("clipboard", "unnamedplus")
+vim.opt.clipboard = "unnamedplus"
 
 -- misc
 vim.keymap.set('n', '<leader>w', '<cmd>write<cr>')
 -- vim.keymap.set({'n', 'x'}, 'x', '"_x')
+
+-- neovide
+if vim.g.neovide then
+    vim.o.guifont = "JetBrainsMono Nerd Font:h13"
+
+    vim.g.neovide_scale_factor = 1.0
+
+    local change_scale = function(delta)
+        vim.g.neovide_scale_factor =
+            vim.g.neovide_scale_factor * delta
+    end
+
+    vim.keymap.set("n", "<C-=>", function() change_scale(1.1) end)
+    vim.keymap.set("n", "<C-+>", function() change_scale(1.1) end)
+    vim.keymap.set("n", "<C-->", function() change_scale(1/1.1) end)
+    vim.keymap.set("n", "<C-0>", function()
+        vim.g.neovide_scale_factor = 1.0
+    end)
+end
 
 -- noyan paste
 vim.keymap.set('n', '<leader>p', 'viwpyiw')
@@ -97,14 +107,19 @@ require("lazy").setup({
   {'dikiaap/minimalist'},
   {'yorickpeterse/vim-paper'},
   {'lifepillar/vim-solarized8'},
+  {'hrsh7th/cmp-path'},
+  {'hrsh7th/cmp-nvim-lua'},
 
--- LSP
+  -- LSP
   {'williamboman/mason.nvim'},
   {'williamboman/mason-lspconfig.nvim'},
-  {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
   {'neovim/nvim-lspconfig'},
-  {'hrsh7th/cmp-nvim-lsp'},
+
+  -- completion
   {'hrsh7th/nvim-cmp'},
+  {'hrsh7th/cmp-nvim-lsp'},
+  {'hrsh7th/cmp-path'},
+  {'hrsh7th/cmp-buffer'},
   {'L3MON4D3/LuaSnip'},
   {'kemiller/vim-ir_black'},
   {
@@ -174,52 +189,102 @@ vim.keymap.set('n', '<S-h>', ':tabprevious<CR>')
 -- require("scrollbar").setup()
 require("nvim-tree").setup()
 vim.keymap.set('n', '<leader>nn', ':NvimTreeToggle<CR>')
--- LSP
-local lsp_zero = require('lsp-zero')
-lsp_zero.on_attach(function(client, bufnr)
-  -- see :help lsp-zero-keybindings
-  -- to learn the available actions
-  lsp_zero.default_keymaps({buffer = bufnr})
-end)
-require('mason').setup({})
-require('mason-lspconfig').setup({
-  -- Replace the language servers listed here
-  -- with the ones you want to install
-  ensure_installed = {'clangd', 'lua_ls'},
-  handlers = {
-    lsp_zero.default_setup,
-  }
+
+-- ======================
+-- LSP (Neovim 0.11+ native config)
+-- ======================
+
+require("mason").setup()
+require("mason-lspconfig").setup({
+    ensure_installed = {
+        "clangd",
+        "lua_ls",
+    },
 })
--- remove annoying semantics
-lsp_zero.set_server_config({
-  on_init = function(client)
-    client.server_capabilities.semanticTokensProvider = nil
-  end,
+
+-- capabilities for completion
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+-- shared on_attach
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+        local bufnr = args.buf
+        local opts = { buffer = bufnr }
+
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+        vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+
+        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+
+        vim.keymap.set("n", "<leader>f", function()
+            vim.lsp.buf.format({ async = true })
+        end, opts)
+    end,
 })
--- completion
-local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
+
+-- diagnostics (modern API)
+vim.diagnostic.config({
+    virtual_text = false,
+    underline = true,
+    severity_sort = true,
+    float = {
+        border = "rounded",
+    },
+})
+
+-- ======================
+-- LSP SERVER CONFIG (NEW API)
+-- ======================
+
+vim.lsp.config("clangd", {
+    capabilities = capabilities,
+})
+
+vim.lsp.config("lua_ls", {
+    capabilities = capabilities,
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { "vim" },
+            },
+        },
+    },
+})
+
+vim.lsp.enable({ "clangd", "lua_ls" })
+
+-- ======================
+-- Completion
+-- ======================
+
+local cmp = require("cmp")
+
 cmp.setup({
-  sources = {
-    {name = 'path'},
-    {name = 'nvim_lsp'},
-    {name = 'nvim_lua'},
-  },
-  formatting = lsp_zero.cmp_format(),
-  mapping = cmp.mapping.preset.insert({
-    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-    ['<C-Space>'] = cmp.mapping.complete(),
-  }),
+    snippet = {
+        expand = function()
+            -- no snippet engine wired (LuaSnip optional)
+        end,
+    },
+
+    mapping = cmp.mapping.preset.insert({
+        ["<C-p>"] = cmp.mapping.select_prev_item(),
+        ["<C-n>"] = cmp.mapping.select_next_item(),
+        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        ["<Tab>"] = cmp.mapping.confirm({ select = true }),
+        ["<C-Space>"] = cmp.mapping.complete(),
+    }),
+
+    sources = {
+        { name = "nvim_lsp" },
+        { name = "path" },
+        { name = "buffer" },
+    },
 })
--- turn off inline diagnostics
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = false
-    }
-)
 
 -- others
 require('lualine').setup({
