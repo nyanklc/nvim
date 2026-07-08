@@ -120,7 +120,6 @@ require("lazy").setup({
   {'hrsh7th/cmp-nvim-lsp'},
   {'hrsh7th/cmp-path'},
   {'hrsh7th/cmp-buffer'},
-  {'L3MON4D3/LuaSnip'},
   {'kemiller/vim-ir_black'},
   {
       "folke/trouble.nvim",
@@ -198,7 +197,7 @@ require("mason").setup()
 require("mason-lspconfig").setup({
     ensure_installed = {
         "clangd",
-        "lua_ls",
+        "basedpyright",
     },
 })
 
@@ -245,6 +244,10 @@ vim.lsp.config("clangd", {
     capabilities = capabilities,
 })
 
+vim.lsp.config("basedpyright", {
+    capabilities = capabilities,
+})
+
 vim.lsp.config("lua_ls", {
     capabilities = capabilities,
     settings = {
@@ -256,7 +259,7 @@ vim.lsp.config("lua_ls", {
     },
 })
 
-vim.lsp.enable({ "clangd", "lua_ls" })
+vim.lsp.enable({ "clangd", "basedpyright" })
 
 -- ======================
 -- Completion
