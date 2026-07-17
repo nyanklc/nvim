@@ -306,7 +306,7 @@ vim.opt.termguicolors = true
 vim.cmd('syntax on')
 vim.api.nvim_cmd({
   cmd = 'colorscheme',
-  args = {'gruvbox'}
+  args = {'ir_black'}
 }, {})
 vim.g['background'] = 'dark'
 
